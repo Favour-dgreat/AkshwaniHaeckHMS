@@ -1,6 +1,6 @@
 let client = null, contractInstance = null, patientImage = null, doctorImage = null, ipfs = null;
 
-let contractAddress="ct_2oAVspWWScJcJrULy8V7L2XSPBTUqdiouMFUJMsJGAofo4QuxR";
+let contractAddress=" ct_2oAVspWWScJcJrULy8V7L2XSPBTUqdiouMFUJMsJGAofo4QuxR";
 let contractSource=`
 payable contract HMS =
 
