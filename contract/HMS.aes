@@ -4,12 +4,12 @@ payable contract HMS =
     { patientAddress    : address,
       name              : string,
       sex               : string,
-      image             : string }
+      ipfsHash          : string,
+      patientID         : string }
 
   record doctor =
-    { doctorAddress : address,
-      name          : string,
-      image         : string }
+    { name          : string,
+      doctorAddress : address}
 
   record medicalRecord =
     { doctor          : string,
@@ -31,51 +31,59 @@ payable contract HMS =
     { patients = {},
       doctors = {},
       medicalRecords = {},
-      owner = ak_E2MbjbXLRoSs9eEKsDftEaKBC5hJtfMhCiQmJ7SL5ajQEoE4k }
+      owner = ak_5WVyRqQzwHBotguBYmi6J4kwztL2PchJ5qTpL6T5Bttn3oX83 }
 
-  stateful entrypoint addPatient(name':string, sex':string, image':string)=
-    let newPatient={patientAddress = Call.caller, name = name', sex = sex', image = image'}
+  payable stateful entrypoint addDoctor(name':string) =
+    let newDoctor={name=name', doctorAddress=Call.caller}
 
-    put(state{patients[Call.caller]=newPatient})
-
-  payable stateful entrypoint addDoctor(name':string, image':string) =
-    let newDoctor={doctorAddress = Call.caller, name = name', image = image'}
-
-    Chain.spend(state.owner, Call.value)
+    Chain.spend(state.owner, 2000000000000000000)
 
     put(state{doctors[Call.caller]=newDoctor})
 
-  stateful entrypoint addMedicalRecord(pAddress:address, date':string, height':string, weight':string,bmi':string,genotype':string,bloodgroup':string,medicationGiven':string)=
-    let doctor = state.doctors[Call.caller]
-    let patient = state.patients[pAddress]
-    require(doctor.doctorAddress == Call.caller, "Only Doctors")
+  stateful entrypoint addPatient(name':string, sex':string,ipfsHash':string, patientID':string)=
+    let newPatient={patientAddress = Call.caller, name = name', sex = sex', ipfsHash = ipfsHash', patientID = patientID'}
 
+    put(state{patients[Call.caller]=newPatient})
+
+
+  stateful entrypoint addMedicalRecord(date':string, height':string, weight':string,bmi':string,genotype':string,bloodgroup':string,medicationGiven':string, pAddress':address)=
+    let doctor = state.doctors[Call.caller]
+    let sPatient = searchPatient(pAddress')
+    require(doctor.doctorAddress == Call.caller, "Only Doctors")
     let newRecord={doctor = doctor.name, date = date', height = height', weight = weight', bmi = bmi', genotype = genotype', bloodgroup = bloodgroup',medicationGiven = medicationGiven'}
 
-    let medicalRecord = Map.lookup_default(patient.patientAddress,state.medicalRecords,[])
+    let medicalRecord=Map.lookup_default(Call.caller,state.medicalRecords,[])
     let newMedicalRecord=newRecord::medicalRecord
 
-    put(state{medicalRecords[patient.patientAddress]=newMedicalRecord})
+    put(state{medicalRecords[sPatient.patientAddress]=newMedicalRecord})
+
+  entrypoint searchPatient(patientAddress : address) : patient =
+    switch(Map.lookup(patientAddress, state.patients))
+      None    => abort("Patient Not Found.")
+      Some(x) => x
 
   entrypoint getPatient()=
-    Map.lookup_default(Call.caller,state.patients,{patientAddress=Call.caller, name="",  sex="",image=""})
-   
-  entrypoint patientRecord()=
-     Map.lookup_default(Call.caller,state.medicalRecords,[])
-  
+    require(state.patients[Call.caller].patientAddress == Call.caller, "Patient Only")
+    state.patients[Call.caller]  
+
   entrypoint getDoctor()=
-    Map.lookup_default(Call.caller,state.doctors,{doctorAddress=Call.caller, name="",image=""})
+    require(state.doctors[Call.caller].doctorAddress == Call.caller, "Doctor Only")
+    state.doctors[Call.caller] 
+
+  entrypoint getOwner()=
+    require(state.owner == Call.caller, "Owner Only") 
+
+  entrypoint patientRecord()=
+    require(state.patients[Call.caller].patientAddress == Call.caller, "Patient Only")
+    state.medicalRecords[Call.caller]
 
   entrypoint allPatients()=
     state.patients
-  
-  entrypoint owner()=
-    require(state.owner == Call.caller, "Owner Only")
 
   entrypoint allDoctors()=
-    owner()
+    require(state.owner == Call.caller, "Owner Only")
     state.doctors
 
   entrypoint allRecords()=
-    owner()
+    require(state.owner == Call.caller, "Owner Only")
     state.medicalRecords

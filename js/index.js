@@ -1,6 +1,6 @@
 let client = null, contractInstance = null, patientImage = null, doctorImage = null, ipfs = null;
 
-let contractAddress=" ct_2oAVspWWScJcJrULy8V7L2XSPBTUqdiouMFUJMsJGAofo4QuxR";
+let contractAddress="ct_24JFGqATLxNLHJEWdYNKgvbKsg2DoR9M1PNssy8Em17tZp27ZS";
 let contractSource=`
 payable contract HMS =
 
@@ -35,7 +35,7 @@ payable contract HMS =
     { patients = {},
       doctors = {},
       medicalRecords = {},
-      owner =  ak_E2MbjbXLRoSs9eEKsDftEaKBC5hJtfMhCiQmJ7SL5ajQEoE4k }
+      owner =  ak_5WVyRqQzwHBotguBYmi6J4kwztL2PchJ5qTpL6T5Bttn3oX83 }
 
   stateful entrypoint addPatient(name':string, sex':string, image':string)=
     let newPatient={patientAddress = Call.caller, name = name', sex = sex', image = image'}
