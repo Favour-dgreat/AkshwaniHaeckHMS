@@ -31,7 +31,7 @@ payable contract HMS =
     { patients = {},
       doctors = {},
       medicalRecords = {},
-      owner = ak_5WVyRqQzwHBotguBYmi6J4kwztL2PchJ5qTpL6T5Bttn3oX83 }
+      owner = ak_E2MbjbXLRoSs9eEKsDftEaKBC5hJtfMhCiQmJ7SL5ajQEoE4k }
 
   payable stateful entrypoint addDoctor(name':string) =
     let newDoctor={name=name', doctorAddress=Call.caller}
