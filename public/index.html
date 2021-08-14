@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HMS - Medications</title>
+    <link rel="stylesheet" href="style.css" media="all" />
+  </head>
+  <body>
+    <header>
+      <p>Logout</p>
+    </header>
+
+    <section class="container">
+      <div class="container-header">
+        <p class="icon">&#10094;</p>
+        <h3>Medications</h3>
+      </div>
+
+      <form method="POST" id="med-form">
+        <label for="illness">Illness</label>
+        <input
+          id="illness"
+          type="text"
+          name="illness"
+          list="illness-list"
+          required
+        />
+        <button type="submit">Search</button>
+
+        <datalist id="illness-list">
+          <option value="Malaria"></option>
+          <option value="Tooth Ache"></option>
+          <option value="Typhoid"></option>
+          <option value="High Blood Pressure"></option>
+          <option value="Diabetes"></option>
+          <option value="Cold"></option>
+          <option value="Flu"></option>
+          <option value="Sore Throat"></option>
+          <option value="Stroke"></option>
+          <option value="Rash"></option>
+        </datalist>
+      </form>
+
+      <div class="medication-panel">
+        <p>Medication</p>
+        <output>Null</output>
+      </div>
+    </section>
+    <script src="index.js"></script>
+  </body>
+</html>

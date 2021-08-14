@@ -1,4 +1,5 @@
 node_modules
 .aeproject-store
 .DS_Store
-package-lock.json
+*.zip
+nodemon.json

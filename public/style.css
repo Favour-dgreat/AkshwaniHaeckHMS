@@ -1,0 +1,98 @@
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+header {
+  padding: 1rem;
+}
+
+header p {
+  text-align: right;
+  color: grey;
+  cursor: not-allowed;
+  user-select: none;
+}
+
+.container {
+  width: 35%;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 4px;
+  border: 1px solid #034c81;
+  box-shadow: 2px 2px 3px rgba(3, 76, 129, 0.8);
+}
+
+.container-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+  user-select: none;
+}
+
+.icon {
+  cursor: not-allowed;
+}
+
+.container-header h3 {
+  margin-left: auto;
+  margin-right: auto;
+  font-variant: small-caps;
+}
+
+label {
+  font-variant: small-caps;
+}
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+  margin: 0.35rem auto 1rem;
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding: 0.5rem 1rem;
+}
+
+button {
+  background: #034c81;
+  color: #fff;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 2rem auto;
+  display: block;
+  transition: all 0.2s linear;
+}
+
+button:hover {
+  box-shadow: 2px 2px 3px rgba(3, 76, 129, 0.8);
+  transform: translateY(-2px);
+}
+
+.medication-panel p {
+  margin-bottom: 0.5rem;
+  font-variant: small-caps;
+  border-bottom: 1px dashed;
+}
+
+output {
+  word-break: break-all;
+}
